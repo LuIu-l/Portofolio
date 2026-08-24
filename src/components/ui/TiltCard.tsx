@@ -74,7 +74,7 @@ export function TiltCard({ children, className, maxTilt = 8 }: TiltCardProps) {
     <div style={{ perspective: 800 }} className={cn("relative", className)}>
       <motion.div
         ref={cardRef}
-        className="absolute inset-0 w-full h-full"
+        className="relative w-full h-full"
         style={{
           rotateX,
           rotateY,
