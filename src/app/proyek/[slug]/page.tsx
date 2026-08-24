@@ -1,0 +1,17 @@
+import { getGithubProject } from "@/lib/github";
+import { notFound } from "next/navigation";
+import ProyekDetailClient from "./ProyekDetailClient";
+
+export default async function ProyekDetail({ params }: { params: { slug: string } }) {
+  const project = await getGithubProject(params.slug);
+
+  if (!project) {
+    notFound();
+  }
+
+  return (
+    <div className="container mx-auto px-4 max-w-4xl py-12 pt-32">
+      <ProyekDetailClient project={project} />
+    </div>
+  );
+}
