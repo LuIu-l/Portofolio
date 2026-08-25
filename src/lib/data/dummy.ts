@@ -1,4 +1,4 @@
-export const proyekData = [
+﻿export const proyekData = [
   {
     slug: "web-company-profile",
     title: "Web Company Profile",
@@ -33,7 +33,7 @@ export const blogData = [
     slug: "proses-bikin-portofolio",
     title: "Proses Bikin Portofolio Ini: Drama Scroll-Jacking, Lag, dan Semua Percobaan Gagalnya",
     date: "25 Agustus 2026",
-    excerpt: "Behind the scenes bikin web porto dari nol — dari hero yang bandel, scroll yang lag parah, sampai fitur yang terpaksa di-cut karena terlalu berat. Ini ceritanya.",
+    excerpt: "Behind the scenes bikin web porto dari nol â€” dari hero yang bandel, scroll yang lag parah, sampai fitur yang terpaksa di-cut karena terlalu berat. Ini ceritanya.",
   },
 ];
 
@@ -59,8 +59,6 @@ export const temanData = [
 ];
 
 export const galleryData = [
-  // Foto items
-  // TODO: sesuaikan alt/title text per foto
   {
     slug: "foto-1",
     title: "Hasil karya fotografi Alif",
@@ -252,6 +250,66 @@ export const galleryData = [
     title: "Hasil karya fotografi Alif",
     type: "Foto",
     image: "/images/gallery/AhaConvert_IMG20251025190307.webp",
+  },
+  {
+    slug: "foto-33",
+    title: "Hasil karya fotografi Alif",
+    type: "Foto",
+    image: "/images/gallery/DSC05435.webp",
+  },
+  {
+    slug: "foto-34",
+    title: "Hasil karya fotografi Alif",
+    type: "Foto",
+    image: "/images/gallery/DSC05442.webp",
+  },
+  {
+    slug: "foto-35",
+    title: "Hasil karya fotografi Alif",
+    type: "Foto",
+    image: "/images/gallery/DSC05458.webp",
+  },
+  {
+    slug: "foto-36",
+    title: "Hasil karya fotografi Alif",
+    type: "Foto",
+    image: "/images/gallery/IMG20250602164007.webp",
+  },
+  {
+    slug: "foto-37",
+    title: "Hasil karya fotografi Alif",
+    type: "Foto",
+    image: "/images/gallery/IMG20250708154027.webp",
+  },
+  {
+    slug: "foto-38",
+    title: "Hasil karya fotografi Alif",
+    type: "Foto",
+    image: "/images/gallery/IMG20250709102103 (1).webp",
+  },
+  {
+    slug: "foto-39",
+    title: "Hasil karya fotografi Alif",
+    type: "Foto",
+    image: "/images/gallery/IMG20250823164033.webp",
+  },
+  {
+    slug: "foto-40",
+    title: "Hasil karya fotografi Alif",
+    type: "Foto",
+    image: "/images/gallery/IMG20260429091103.webp",
+  },
+  {
+    slug: "foto-41",
+    title: "Hasil karya fotografi Alif",
+    type: "Foto",
+    image: "/images/gallery/IMG20260720231755.webp",
+  },
+  {
+    slug: "foto-42",
+    title: "Hasil karya fotografi Alif",
+    type: "Foto",
+    image: "/images/gallery/IMG_20250822_164120.webp",
   },
 ];
 
