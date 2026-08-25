@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { FadeInSection } from "@/components/ui/FadeInSection";
 import { TextReveal } from "@/components/ui/TextReveal";
@@ -49,16 +49,27 @@ export default function About() {
           <TiltCard className="h-full">
             <GlowingCard glowColor="primary" className="h-full">
               <h3 className="text-xl font-bold text-slate-900 mb-4">Profil Singkat</h3>
-              <p className="text-slate-600 mb-4">
-                Halo! Saya Alif, seorang Developer dan Fotografer/Videografer. Saya
-                senang menggabungkan logika pemrograman dengan estetika visual untuk
-                menciptakan pengalaman digital yang menarik.
+              <p className="text-slate-600 mb-6 text-sm md:text-base leading-relaxed">
+                Halo! Saya Alif Ikhwan Aulad Alhafidz seorang Developer dan Fotografer/Videografer pemula.
               </p>
-              <ul className="space-y-2 text-slate-600 text-sm">
+              <ul className="space-y-3 text-slate-600 text-sm">
                 <li>🎓 <strong className="text-slate-800">Pendidikan:</strong> SMK Marhas Margahayu</li>
-                <li>⛺ <strong className="text-slate-800">Organisasi:</strong> Pramuka - Hartaka (Bendahara)</li>
+                <li>⛺ <strong className="text-slate-800">Organisasi:</strong> Pramuka — Hartaka (Bendahara)</li>
                 <li>🤝 <strong className="text-slate-800">Soft Skill:</strong> Kerja Tim, Kreatif, Komunikatif, Adaptif</li>
+                <li>📍 <strong className="text-slate-800">Lokasi:</strong> Bandung, Jawa Barat, Indonesia</li>
+                <li>🌐 <strong className="text-slate-800">Bahasa:</strong> Indonesia (native), Inggris (pasif), Jepang (pasif)</li>
+                <li>🕐 <strong className="text-slate-800">Status:</strong> Terbuka untuk kolaborasi proyek freelance/kerja sama</li>
+                <li>🎬 <strong className="text-slate-800">Minat:</strong> Fotografi &amp; videografi bergaya sinematik — terinspirasi dari dunia film dan movie</li>
               </ul>
+              
+              <div className="mt-8">
+                <h4 className="text-base font-bold text-slate-900 mb-3 border-b border-slate-200 pb-2">Pencapaian</h4>
+                <ul className="space-y-2 text-slate-600 text-sm">
+                  <li>🏆 Juara 4 — Lomba Kreasi Foto Pramuka</li>
+                  <li>🏆 Lomba IT — (menyusul)</li>
+                  <li>🏆 Lomba Pramuka — (menyusul)</li>
+                </ul>
+              </div>
             </GlowingCard>
           </TiltCard>
         </motion.div>

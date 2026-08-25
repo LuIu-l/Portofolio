@@ -61,8 +61,9 @@ function renderContent(block: BlogContent, i: number) {
   }
 }
 
-export default async function BlogDetail({ params }: { params: { slug: string } }) {
-  const post = blogPosts.find((p) => p.slug === params.slug);
+export default async function BlogDetail({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
+  const post = blogPosts.find((p) => p.slug === resolvedParams.slug);
 
   if (!post) {
     notFound();

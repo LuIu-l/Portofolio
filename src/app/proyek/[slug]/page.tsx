@@ -10,8 +10,9 @@ export async function generateStaticParams() {
   ];
 }
 
-export default async function ProyekDetail({ params }: { params: { slug: string } }) {
-  const project = await getGithubProject(params.slug);
+export default async function ProyekDetail({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
+  const project = await getGithubProject(resolvedParams.slug);
 
   if (!project) {
     notFound();
