@@ -29,12 +29,12 @@ export default function GalleryPage() {
       {/* ── Header ── */}
       <div className="container mx-auto px-4 max-w-7xl pt-32 pb-12">
         <TextReveal
-          text="Karya Visual"
+          text="Gallery"
           as="h1"
           className="text-4xl md:text-5xl font-bold text-slate-900 text-center mb-4"
         />
-        <p className="text-slate-600 text-center max-w-2xl mx-auto">
-          Eksplorasi estetika dan dokumentasi momen melalui lensa.
+        <p className="text-slate-600 text-center max-w-2xl mx-auto capitalize">
+          karya hasil hobi gabut bermodal handphone
         </p>
       </div>
 
