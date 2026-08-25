@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import { GlowingCard } from "@/components/ui/GlowingCard";
 import { blogData, temanData, galleryData } from "@/lib/data/dummy";
 import Hero from "@/components/sections/Hero";
+import About from "@/components/sections/About";
 import Contact from "@/components/sections/Contact";
 import { FadeInSection } from "@/components/ui/FadeInSection";
 import { TextReveal } from "@/components/ui/TextReveal";
@@ -14,7 +15,19 @@ import { staggerItem } from "@/lib/animations";
 import { useRef } from "react";
 import { GithubProject } from "@/lib/github";
 
-// Reusable parallax background wrapper
+const VelocityGallery = dynamic(() => import("@/components/ui/VelocityGallery").then(mod => mod.VelocityGallery), {
+  ssr: false,
+  loading: () => <div className="h-[200px] flex items-center justify-center text-slate-400">Memuat Galeri...</div>
+});
+
+// Prepare images for VelocityGallery (module-level, computed once)
+const galleryImages = galleryData.map((item) => ({
+  src: item.image,
+  alt: item.title,
+}));
+
+
+// Reusable parallax background wrapper (used in gallery section below)
 function ParallaxBg({ className }: { className: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -41,57 +54,7 @@ export default function HomePageClient({ projects }: { projects: GithubProject[]
       <Hero />
 
       {/* 2. About Section */}
-      <FadeInSection id="about" className="container mx-auto px-4 max-w-6xl scroll-mt-24 relative" stagger>
-        {/* Parallax decorative bg */}
-        <ParallaxBg className="absolute inset-0 bg-gradient-to-br from-slate-100/60 to-transparent rounded-3xl" />
-
-        <div className="text-center mb-12">
-          <TextReveal
-            text="Tentang Saya"
-            as="h2"
-            className="text-3xl font-bold text-slate-900 justify-center inline-flex relative after:content-[''] after:absolute after:-bottom-2 after:left-1/4 after:right-1/4 after:h-[2px] after:bg-slate-900 after:rounded-full"
-          />
-        </div>
-        <div className="grid md:grid-cols-2 gap-8">
-          <motion.div variants={staggerItem}>
-            <TiltCard className="h-full">
-              <GlowingCard glowColor="primary" className="h-full">
-                <h3 className="text-xl font-bold text-slate-900 mb-4">Profil Singkat</h3>
-                <p className="text-slate-600 mb-4">
-                  Halo! Saya Alif, seorang Developer dan Fotografer/Videografer. Saya senang menggabungkan logika pemrograman dengan estetika visual untuk menciptakan pengalaman digital yang menarik.
-                </p>
-                <ul className="space-y-2 text-slate-600 text-sm">
-                  <li>🎓 <strong className="text-slate-800">Pendidikan:</strong> SMK Marhas Margahayu</li>
-                  <li>⛺ <strong className="text-slate-800">Organisasi:</strong> Pramuka - Hartaka (Bendahara)</li>
-                  <li>🤝 <strong className="text-slate-800">Soft Skill:</strong> Kerja Tim, Kreatif, Komunikatif, Adaptif</li>
-                </ul>
-              </GlowingCard>
-            </TiltCard>
-          </motion.div>
-
-          <motion.div variants={staggerItem}>
-            <TiltCard className="h-full">
-              <GlowingCard glowColor="secondary" className="h-full">
-                <h3 className="text-xl font-bold text-slate-900 mb-4">Keahlian &amp; Tools</h3>
-                <div className="space-y-4">
-                  <div>
-                    <strong className="text-slate-800 text-sm">Desain/Prototyping:</strong>
-                    <p className="text-slate-600 text-sm mt-1">Figma, Balsamiq, Canva</p>
-                  </div>
-                  <div>
-                    <strong className="text-slate-800 text-sm">Development:</strong>
-                    <p className="text-slate-600 text-sm mt-1">Laravel, Vue.js, Git, Laragon, Next.js, Tailwind</p>
-                  </div>
-                  <div>
-                    <strong className="text-slate-800 text-sm">Fotografi/Videografi:</strong>
-                    <p className="text-slate-600 text-sm mt-1">Adobe Lightroom, Videografi, Fotografi</p>
-                  </div>
-                </div>
-              </GlowingCard>
-            </TiltCard>
-          </motion.div>
-        </div>
-      </FadeInSection>
+      <About />
 
       {/* 3. Proyek Section */}
       <FadeInSection id="proyek" className="container mx-auto px-4 max-w-6xl scroll-mt-24" stagger>
@@ -194,11 +157,11 @@ export default function HomePageClient({ projects }: { projects: GithubProject[]
       </FadeInSection>
 
       {/* 6. Gallery Section */}
-      <FadeInSection id="gallery" className="container mx-auto px-4 max-w-6xl scroll-mt-24 relative" stagger>
+      <FadeInSection id="gallery" className="scroll-mt-24 relative overflow-hidden" stagger>
         {/* Parallax decorative bg */}
         <ParallaxBg className="absolute inset-0 bg-gradient-to-tl from-slate-100/50 to-transparent rounded-3xl" />
 
-        <motion.div variants={staggerItem} className="flex justify-between items-end mb-8">
+        <motion.div variants={staggerItem} className="container mx-auto px-4 max-w-6xl flex justify-between items-end mb-8">
           <TextReveal
             text="Galeri Visual"
             as="h2"
@@ -206,25 +169,11 @@ export default function HomePageClient({ projects }: { projects: GithubProject[]
           />
           <Link href="/gallery" className="text-slate-600 hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2 rounded-sm">Lihat Galeri &rarr;</Link>
         </motion.div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {galleryData.slice(0, 6).map((item) => (
-            <motion.div key={item.slug} variants={staggerItem}>
-              <TiltCard className="group relative aspect-square overflow-hidden rounded-xl bg-slate-100" maxTilt={5}>
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  sizes="(max-width: 768px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
-                  <span className="text-xs bg-white text-slate-900 font-medium px-2 py-1 rounded w-max mb-2">{item.type}</span>
-                  <h4 className="text-white font-medium text-sm md:text-base truncate">{item.title}</h4>
-                </div>
-              </TiltCard>
-            </motion.div>
-          ))}
-        </div>
+
+        {/* VelocityGallery — full-bleed, no container constraint */}
+        <motion.div variants={staggerItem} className="pb-8">
+          <VelocityGallery images={galleryImages} />
+        </motion.div>
       </FadeInSection>
 
       {/* 7. Contact Section */}

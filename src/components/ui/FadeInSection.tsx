@@ -9,9 +9,10 @@ interface FadeInSectionProps {
   className?: string;
   id?: string;
   stagger?: boolean;
+  amount?: number | "some" | "all";
 }
 
-export function FadeInSection({ children, className, id, stagger = false }: FadeInSectionProps) {
+export function FadeInSection({ children, className, id, stagger = false, amount = "some" }: FadeInSectionProps) {
   const shouldReduceMotion = useReducedMotion();
 
   const noMotionVariant = {
@@ -25,7 +26,7 @@ export function FadeInSection({ children, className, id, stagger = false }: Fade
       className={cn(className)}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount }}
       variants={shouldReduceMotion ? noMotionVariant : (stagger ? staggerContainer : fadeUpVariant)}
     >
       {children}

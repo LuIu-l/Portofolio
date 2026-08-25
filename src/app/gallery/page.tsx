@@ -1,44 +1,51 @@
 "use client";
 
-import { FadeInSection } from "@/components/ui/FadeInSection";
+import dynamic from "next/dynamic";
 import { TextReveal } from "@/components/ui/TextReveal";
-import { TiltCard } from "@/components/ui/TiltCard";
-import { motion } from "framer-motion";
-import { staggerItem } from "@/lib/animations";
 import { galleryData } from "@/lib/data/dummy";
-import Image from "next/image";
+import { FadeInSection } from "@/components/ui/FadeInSection";
+import { staggerItem } from "@/lib/animations";
+import { motion } from "framer-motion";
+
+const TiltFlow = dynamic(() => import("@/components/ui/TiltFlow").then(mod => mod.TiltFlow), {
+  ssr: false,
+  loading: () => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4 w-full">
+      {Array.from({ length: 8 }).map((_, i) => (
+        <div key={i} className="animate-pulse bg-slate-100 rounded-xl aspect-[4/3] w-full" />
+      ))}
+    </div>
+  ),
+});
 
 export default function GalleryPage() {
+  const images = galleryData.map((item) => ({
+    src: item.image,
+    alt: item.title,
+  }));
+
   return (
-    <div className="container mx-auto px-4 max-w-6xl py-12 pt-32">
-      <FadeInSection stagger>
-        <motion.div variants={staggerItem} className="mb-8">
-          <TextReveal
-            text="Galeri Visual"
-            as="h1"
-            className="text-4xl font-bold text-slate-900"
-          />
-        </motion.div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {galleryData.map((item) => (
-            <motion.div key={item.slug} variants={staggerItem}>
-              <TiltCard className="group relative aspect-square overflow-hidden rounded-xl bg-slate-100" maxTilt={5}>
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  sizes="(max-width: 768px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
-                  <span className="text-xs bg-white text-slate-900 font-medium px-2 py-1 rounded w-max mb-2">{item.type}</span>
-                  <h4 className="text-white font-medium text-sm md:text-base truncate">{item.title}</h4>
-                </div>
-              </TiltCard>
-            </motion.div>
-          ))}
-        </div>
-      </FadeInSection>
+    <div className="min-h-screen bg-white">
+      {/* ── Header ── */}
+      <div className="container mx-auto px-4 max-w-7xl pt-32 pb-12">
+        <TextReveal
+          text="Karya Visual"
+          as="h1"
+          className="text-4xl md:text-5xl font-bold text-slate-900 text-center mb-4"
+        />
+        <p className="text-slate-600 text-center max-w-2xl mx-auto">
+          Eksplorasi estetika dan dokumentasi momen melalui lensa.
+        </p>
+      </div>
+
+      {/* ── TiltFlow Section (Semua Karya) ── */}
+      <section className="container mx-auto px-4 max-w-7xl pb-32">
+        <FadeInSection stagger>
+          <motion.div variants={staggerItem}>
+            <TiltFlow images={images} />
+          </motion.div>
+        </FadeInSection>
+      </section>
     </div>
   );
 }

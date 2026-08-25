@@ -28,6 +28,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://api.github.com" />
+        <link rel="dns-prefetch" href="https://api.github.com" />
+      </head>
       <body className="antialiased min-h-screen flex flex-col relative bg-slate-950 text-slate-100">
         <SmoothScrollProvider>
           <ScrollProgressBar />

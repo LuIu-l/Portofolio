@@ -2,6 +2,14 @@ import { getGithubProject } from "@/lib/github";
 import { notFound } from "next/navigation";
 import ProyekDetailClient from "./ProyekDetailClient";
 
+export async function generateStaticParams() {
+  return [
+    { slug: 'Sppg-sistem' },
+    { slug: 'Pantau-dana' },
+    { slug: 'komunitasai' }
+  ];
+}
+
 export default async function ProyekDetail({ params }: { params: { slug: string } }) {
   const project = await getGithubProject(params.slug);
 

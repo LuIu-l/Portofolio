@@ -10,13 +10,13 @@ import {
 } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface TiltCardProps {
+interface TiltCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
   maxTilt?: number;
 }
 
-export function TiltCard({ children, className, maxTilt = 8 }: TiltCardProps) {
+export function TiltCard({ children, className, maxTilt = 8, ...props }: TiltCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHoverDevice, setIsHoverDevice] = useState(false);
   const shouldReduceMotion = useReducedMotion();
@@ -65,13 +65,13 @@ export function TiltCard({ children, className, maxTilt = 8 }: TiltCardProps) {
   }
 
   if (!isHoverDevice) {
-    return <div className={cn(className)}>{children}</div>;
+    return <div className={cn(className)} {...props}>{children}</div>;
   }
 
   return (
     // Perspective on static wrapper — not on the animated element
     // This prevents perspective recalculation on every animation frame
-    <div style={{ perspective: 800 }} className={cn("relative", className)}>
+    <div style={{ perspective: 800 }} className={cn("relative", className)} {...props}>
       <motion.div
         ref={cardRef}
         className="relative w-full h-full"

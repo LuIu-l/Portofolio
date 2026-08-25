@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+﻿# 🖥️ Porto Pro Max — Web Portfolio Alif Ikhwan
 
-## Getting Started
+Website portofolio personal untuk keperluan **personal branding jangka panjang**, menampilkan identitas sebagai kombinasi **Developer** dan **Fotografer/Videografer**.
 
-First, run the development server:
+> *"Developer yang juga punya mata fotografer"*
+
+---
+
+## ⚡ Tech Stack
+
+| Layer | Teknologi |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Styling | Tailwind CSS |
+| Animasi | Framer Motion |
+| Package Manager | pnpm |
+
+---
+
+## 🚀 Menjalankan Project
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Install dependencies
+pnpm install
+
+# Development server
 pnpm dev
-# or
-bun dev
+
+# Production build
+pnpm build
+
+# Jalankan hasil build
+pnpm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka [http://localhost:3000](http://localhost:3000) di browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Struktur Folder
 
-## Learn More
+```
+Porto pro max/
+├── docs/
+│   └── prd.md                  # Product Requirements Document
+├── public/
+│   └── images/
+│       ├── hero/               # Foto untuk section Hero
+│       └── gallery/            # Foto untuk section Gallery
+├── src/
+│   ├── app/                    # Next.js App Router (halaman)
+│   │   ├── api/contact/        # API route form kontak
+│   │   ├── blog/               # Halaman blog
+│   │   ├── gallery/            # Halaman gallery
+│   │   ├── proyek/             # Halaman proyek
+│   │   ├── HomePageClient.tsx  # Komponen homepage (client)
+│   │   ├── layout.tsx          # Root layout
+│   │   └── page.tsx            # Entry point homepage
+│   ├── components/
+│   │   ├── blocks/             # Komponen interaktif/kompleks (scroll hero, 3D, dll)
+│   │   ├── layout/             # Navbar, Footer
+│   │   ├── providers/          # Context & provider wrapper
+│   │   ├── sections/           # Section-section halaman (Hero, Contact, dll)
+│   │   └── ui/                 # Komponen UI reusable kecil (Card, Button, dll)
+│   └── lib/
+│       ├── data/
+│       │   └── dummy.ts        # Data statis (gallery, blog, proyek, dll)
+│       ├── animations.ts       # Konfigurasi animasi Framer Motion
+│       ├── github.ts           # Fetch data dari GitHub API
+│       └── utils.ts            # Utility functions (cn, dll)
+├── .env.example                # Template variabel environment
+├── AGENTS.md                   # Panduan untuk AI agent (jangan dihapus)
+└── next.config.ts              # Konfigurasi Next.js
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🌐 Halaman
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Route | Keterangan |
+|---|---|
+| `/` | Homepage (Hero, About, Proyek, Blog, Gallery, Contact) |
+| `/proyek` | Listing semua proyek |
+| `/proyek/[slug]` | Detail satu proyek |
+| `/blog` | Listing semua artikel blog |
+| `/blog/[slug]` | Detail satu artikel |
+| `/gallery` | Galeri foto lengkap |
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📋 Dokumentasi
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [PRD (Product Requirements Document)](docs/prd.md)
