@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
 import {
   motion,
   useMotionValue,
@@ -26,7 +26,8 @@ const FlowCard = ({
   isFocused, 
   isDimmed,
   onClick,
-  layoutId
+  layoutId,
+  enableMotion,
 }: { 
   img: ImageItem; 
   index: number; 
@@ -34,6 +35,7 @@ const FlowCard = ({
   isDimmed: boolean;
   onClick: () => void;
   layoutId?: string;
+  enableMotion: boolean;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -53,7 +55,7 @@ const FlowCard = ({
   );
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (shouldReduceMotion || !ref.current) return;
+    if (!enableMotion || shouldReduceMotion || !ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     const mx = e.clientX - rect.left - rect.width / 2;
     const my = e.clientY - rect.top - rect.height / 2;
@@ -62,6 +64,7 @@ const FlowCard = ({
   };
 
   const handleMouseLeave = () => {
+    if (!enableMotion) return;
     x.set(0);
     y.set(0);
   };
@@ -75,15 +78,15 @@ const FlowCard = ({
     <motion.div
       ref={ref}
       onClick={onClick}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      animate={{ scale, opacity, zIndex }}
-      layoutId={shouldReduceMotion ? undefined : layoutId}
+      onMouseMove={enableMotion ? handleMouseMove : undefined}
+      onMouseLeave={enableMotion ? handleMouseLeave : undefined}
+      animate={enableMotion ? { scale, opacity, zIndex } : undefined}
+      layoutId={enableMotion && !shouldReduceMotion ? layoutId : undefined}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       style={{
-        rotateX: shouldReduceMotion ? 0 : rotateX,
-        rotateY: shouldReduceMotion ? 0 : rotateY,
-        transformPerspective: 800,
+        rotateX: enableMotion && !shouldReduceMotion ? rotateX : 0,
+        rotateY: enableMotion && !shouldReduceMotion ? rotateY : 0,
+        transformPerspective: enableMotion ? 800 : undefined,
       }}
       className="relative aspect-[4/3] rounded-xl overflow-hidden cursor-zoom-in shadow-md bg-slate-100"
     >
@@ -91,7 +94,8 @@ const FlowCard = ({
         src={img.src}
         alt={img.alt}
         fill
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        sizes="(max-width: 768px) calc((100vw - 44px) / 2), (max-width: 1200px) 33vw, 25vw"
+        quality={70}
         className="object-cover transition-transform duration-500 ease-out"
         loading="lazy"
       />
@@ -105,10 +109,18 @@ const FlowCard = ({
 };
 
 export function TiltFlow({ images }: TiltFlowProps) {
+  const isTouchDevice = useSyncExternalStore(
+    () => () => {},
+    () => window.matchMedia("(hover: none), (pointer: coarse)").matches,
+    () => false,
+  );
+  const enableMotion = !isTouchDevice;
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [visibleCount, setVisibleCount] = useState(12);
+  const [additionalCount, setAdditionalCount] = useState(0);
   const [selectedImage, setSelectedImage] = useState<ImageItem | null>(null);
 
+  const initialCount = isTouchDevice ? 6 : 12;
+  const visibleCount = Math.min(images.length, initialCount + additionalCount);
   const visibleImages = images.slice(0, visibleCount);
   const hasMore = visibleCount < images.length;
 
@@ -118,15 +130,8 @@ export function TiltFlow({ images }: TiltFlowProps) {
         className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 p-4 w-full"
         onMouseLeave={() => setHoveredIndex(null)}
       >
-        {visibleImages.map((img, i) => (
-          <motion.div 
-            key={img.src + i}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: (i % 12) * 0.05 }}
-            onMouseEnter={() => setHoveredIndex(i)}
-            className="relative"
-          >
+        {visibleImages.map((img, i) => {
+          const card = (
             <FlowCard 
               img={img} 
               index={i} 
@@ -134,14 +139,32 @@ export function TiltFlow({ images }: TiltFlowProps) {
               isDimmed={hoveredIndex !== null && hoveredIndex !== i}
               onClick={() => setSelectedImage(img)}
               layoutId={`lightbox-image-${img.src}`}
+              enableMotion={enableMotion}
             />
-          </motion.div>
-        ))}
+          );
+
+          if (!enableMotion) {
+            return <div key={img.src + i} className="relative">{card}</div>;
+          }
+
+          return (
+            <motion.div
+              key={img.src + i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: (i % 12) * 0.05 }}
+              onMouseEnter={() => setHoveredIndex(i)}
+              className="relative"
+            >
+              {card}
+            </motion.div>
+          );
+        })}
       </div>
       
       {hasMore && (
         <button 
-          onClick={() => setVisibleCount((prev) => prev + 12)}
+          onClick={() => setAdditionalCount((prev) => prev + 12)}
           className="mt-12 px-8 py-3 bg-slate-900 text-white font-medium rounded-lg hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2 cursor-pointer select-none"
         >
           Muat Lebih Banyak

@@ -5,6 +5,7 @@ import withBundleAnalyzer from "@next/bundle-analyzer";
 
 const nextConfig: NextConfig = {
   images: {
+    qualities: [70, 75],
     remotePatterns: [
       {
         protocol: "https",
