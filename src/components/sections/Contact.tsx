@@ -52,7 +52,7 @@ export default function Contact() {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-12 text-left">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 text-left">
           <div>
             <h3 className="text-lg font-bold text-slate-900 mb-5">Kirim Pesan</h3>
             <form onSubmit={handleSubmit} className="space-y-4">

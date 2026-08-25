@@ -56,12 +56,12 @@ export function ImageLightbox({ isOpen, onClose, image, layoutId }: ImageLightbo
           onClick={onClose}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/75 p-4 md:p-8 backdrop-blur-md cursor-zoom-out"
         >
-          {/* Close button glassmorphism */}
+          {/* Close button — large tap target */}
           <button
             ref={closeButtonRef}
             onClick={onClose}
             aria-label="Tutup galeri"
-            className="absolute top-6 right-6 z-[110] p-3 text-white bg-white/10 border border-white/20 hover:bg-white/20 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-white cursor-pointer select-none"
+            className="absolute top-4 right-4 z-[110] w-11 h-11 flex items-center justify-center text-white bg-white/10 border border-white/20 hover:bg-white/25 active:bg-white/30 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-white cursor-pointer select-none"
           >
             <svg 
               xmlns="http://www.w3.org/2000/svg" 

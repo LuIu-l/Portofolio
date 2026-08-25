@@ -58,16 +58,16 @@ export function ScrollExpandMedia({
 
         {/* Split Title */}
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
-          <div className="flex gap-4 md:gap-6 overflow-hidden px-4 w-full justify-center items-center">
+          <div className="flex gap-2 md:gap-6 overflow-hidden px-4 w-full justify-center items-center flex-wrap">
             <motion.h1 
               style={{ x: titleLeftX, opacity: titleOpacity }}
-              className="text-4xl md:text-6xl lg:text-8xl font-bold text-slate-900 whitespace-nowrap tracking-tight"
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-bold text-slate-900 tracking-tight"
             >
               {leftTitle}
             </motion.h1>
             <motion.h1 
               style={{ x: titleRightX, opacity: titleOpacity }}
-              className="text-4xl md:text-6xl lg:text-8xl font-bold text-slate-400 whitespace-nowrap tracking-tight"
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-bold text-slate-400 tracking-tight"
             >
               {rightTitle}
             </motion.h1>

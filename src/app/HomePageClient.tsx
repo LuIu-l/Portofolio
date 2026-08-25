@@ -170,8 +170,24 @@ export default function HomePageClient({ projects }: { projects: GithubProject[]
           <Link href="/gallery" className="text-slate-600 hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2 rounded-sm">Lihat Galeri &rarr;</Link>
         </motion.div>
 
-        {/* VelocityGallery — full-bleed, no container constraint */}
-        <motion.div variants={staggerItem} className="pb-8">
+        {/* Mobile: static grid (6 foto) */}
+        <motion.div variants={staggerItem} className="md:hidden container mx-auto px-4 max-w-6xl pb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {galleryImages.slice(0, 6).map((img, i) => (
+              <div key={i} className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-100">
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Desktop: VelocityGallery full-bleed */}
+        <motion.div variants={staggerItem} className="hidden md:block pb-8">
           <VelocityGallery images={galleryImages} />
         </motion.div>
       </FadeInSection>

@@ -115,7 +115,7 @@ export function TiltFlow({ images }: TiltFlowProps) {
   return (
     <div className="flex flex-col items-center">
       <div 
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4 w-full"
+        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 p-4 w-full"
         onMouseLeave={() => setHoveredIndex(null)}
       >
         {visibleImages.map((img, i) => (
