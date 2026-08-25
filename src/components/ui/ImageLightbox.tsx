@@ -96,7 +96,7 @@ export function ImageLightbox({ isOpen, onClose, image, layoutId }: ImageLightbo
                 fill
                 sizes="(max-width: 1200px) 100vw, 1200px"
                 className="object-contain rounded-lg"
-                priority
+                loading="eager"
               />
             </div>
             

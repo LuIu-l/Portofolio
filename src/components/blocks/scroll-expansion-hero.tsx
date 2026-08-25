@@ -96,6 +96,7 @@ export function ScrollExpandMedia({
               muted
               loop
               playsInline
+              preload="none"
               className="w-full h-full object-cover"
               aria-label="Video presentasi portofolio"
             />

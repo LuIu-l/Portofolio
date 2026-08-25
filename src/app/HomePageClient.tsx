@@ -146,7 +146,7 @@ export default function HomePageClient({ projects }: { projects: GithubProject[]
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {temanData.map((teman, i) => (
             <motion.a key={i} variants={staggerItem} href={teman.link} className="bg-white border border-slate-200 p-4 rounded-xl flex items-center gap-4 hover:border-slate-400 hover:shadow-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2">
-              <img src={teman.avatar} alt={teman.name} className="w-12 h-12 rounded-full bg-slate-100" />
+              <img src={teman.avatar} alt={teman.name} loading="lazy" decoding="async" className="w-12 h-12 rounded-full bg-slate-100" />
               <div>
                 <h4 className="text-slate-900 font-medium text-sm">{teman.name}</h4>
                 <span className="text-slate-600 text-xs">{teman.role}</span>
