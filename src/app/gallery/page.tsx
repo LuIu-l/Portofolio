@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import dynamic from "next/dynamic";
 import { TextReveal } from "@/components/ui/TextReveal";
@@ -6,6 +6,7 @@ import { galleryData } from "@/lib/data/dummy";
 import { FadeInSection } from "@/components/ui/FadeInSection";
 import { staggerItem } from "@/lib/animations";
 import { motion } from "framer-motion";
+import { MotionLayerScroller } from "@/components/ui/MotionLayerScroller";
 
 const TiltFlow = dynamic(() => import("@/components/ui/TiltFlow").then(mod => mod.TiltFlow), {
   ssr: false,
@@ -37,6 +38,9 @@ export default function GalleryPage() {
           karya hasil hobi gabut bermodal handphone
         </p>
       </div>
+
+      {/* ── MotionLayerScroller (parallax depth preview) ── */}
+      <MotionLayerScroller images={images} />
 
       {/* ── TiltFlow Section (Semua Karya) ── */}
       <section className="container mx-auto px-4 max-w-7xl pb-32">
